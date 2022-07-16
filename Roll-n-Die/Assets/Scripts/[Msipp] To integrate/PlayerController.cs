@@ -19,6 +19,13 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
             transform.position += movement * Time.deltaTime * moveSpeed;
         }
-        
+
+
     }
+
+   public void death()
+    {
+        GameManager.Instance.GameOver();
+    }
+ 
 }
