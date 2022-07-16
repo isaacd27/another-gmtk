@@ -7,7 +7,7 @@ public class MyIntEvent : UnityEvent<int>
 {
 }
 
-public class PlayerMovementController2D : MonoBehaviour
+public class PlayerMovementController2D : BasePlayerController2D
 {
     [SerializeField]
     SpriteRenderer FireWeapon;
@@ -22,15 +22,15 @@ public class PlayerMovementController2D : MonoBehaviour
     public float AngularSpeed = 1f;
     // IsometricCharacterRenderer isoRenderer;
 
-    Rigidbody2D rbody;
 
     Vector2 LastDirection;
     Transform OwnTransform;
     Vector3 MousePosition;
 
-    private void Awake()
+    protected override void Awake()
     {
-        rbody = GetComponent<Rigidbody2D>();
+        base.Awake();
+
         // isoRenderer = GetComponentInChildren<IsometricCharacterRenderer>();
         OwnTransform = transform;
 
@@ -38,8 +38,11 @@ public class PlayerMovementController2D : MonoBehaviour
         movementSpeed = normalMovementSpeed;        
     }
 
+    protected override void ControllerUpdate()
+    {    }
+
     // Update is called once per frame
-    void FixedUpdate()
+    protected override void ControllerFixedUpdate()
     {
         movementSpeed = normalMovementSpeed;
         // isoRenderer.AverageMaxSpeed = movementSpeed;
@@ -47,7 +50,7 @@ public class PlayerMovementController2D : MonoBehaviour
         Vector2 direction = new Vector2(Input.GetAxisRaw("RightHorizontal"), Input.GetAxisRaw("RightVertical"));
         direction = direction * AngularSpeed;
 
-        Vector2 currentPos = rbody.position;
+        Vector2 currentPos = m_rbody.position;
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
         Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
@@ -55,7 +58,7 @@ public class PlayerMovementController2D : MonoBehaviour
         Vector2 movement = inputVector * movementSpeed;
         currentVel = movement * Time.fixedDeltaTime;
         Vector2 newPos = currentPos + currentVel;
-        rbody.MovePosition(newPos);
+        m_rbody.MovePosition(newPos);
 
         if (direction != Vector2.zero)
         {
@@ -79,6 +82,7 @@ public class PlayerMovementController2D : MonoBehaviour
             lastWantedDirection = direction;
         }
     }
+
     Vector2 currentVel;
     public void SwitchWeapon(int WeaponIndex)
     {

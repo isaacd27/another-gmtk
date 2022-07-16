@@ -80,22 +80,22 @@ public class AutonomousMovementController2D : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        GUILayout.BeginVertical(GUI.skin.box);
-        UIDebugDrawLabelValue("Current Vel", rbody.velocity.ToString());
-        UIDebugDrawLabelValue("Mov Speed", movementSpeed.ToString());
-        UIDebugDrawLabelValue("Max Delta Vel", (movementSpeed * Time.fixedDeltaTime).ToString());
-        GUILayout.EndVertical();
-    }
+    //private void OnGUI()
+    //{
+    //    GUILayout.BeginVertical(GUI.skin.box);
+    //    UIDebugDrawLabelValue("Current Vel", rbody.velocity.ToString());
+    //    UIDebugDrawLabelValue("Mov Speed", movementSpeed.ToString());
+    //    UIDebugDrawLabelValue("Max Delta Vel", (movementSpeed * Time.fixedDeltaTime).ToString());
+    //    GUILayout.EndVertical();
+    //}
 
-    private void UIDebugDrawLabelValue(string label, string value)
-    {
-        GUILayout.BeginHorizontal();
-        {
-            GUILayout.Label(label + ":");
-            GUILayout.Label(value);
-        }
-        GUILayout.EndHorizontal();
-    }
+    //private void UIDebugDrawLabelValue(string label, string value)
+    //{
+    //    GUILayout.BeginHorizontal();
+    //    {
+    //        GUILayout.Label(label + ":");
+    //        GUILayout.Label(value);
+    //    }
+    //    GUILayout.EndHorizontal();
+    //}
 }
