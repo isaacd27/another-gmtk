@@ -21,19 +21,19 @@ public class Coward : BasicEnemy
     protected override void Movement()
     {
 
-
+        
         float coward = Vector3.Distance(transform.position, Player.transform.position);
 
         if (coward <= cowardrad)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(transform.position - Player.transform.position);
-            float str = Mathf.Min(rotationSpeed * Time.deltaTime, 1);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
-            transform.Translate(speed * Time.deltaTime, speed * Time.deltaTime, 0);
+            Vector2 targetDirection = transform.position - Player.transform.position;
+            Vector2 movement = targetDirection * speed;
+            Vector2 newPos = GetComponent<Rigidbody2D>().position + movement * Time.fixedDeltaTime;
+            transform.position = newPos;
         }
         else
         {
-            Quaternion targetRotation = Quaternion.LookRotation(Player.transform.position - transform.position);
+          // lookat the player
 
             /*  
             if(EnemyCool <= 0f){
