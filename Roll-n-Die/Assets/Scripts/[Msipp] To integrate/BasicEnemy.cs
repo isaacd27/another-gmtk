@@ -7,6 +7,8 @@ public class BasicEnemy : MonoBehaviour
     //public GameObject coinprefab;
     public GameObject Player;
     public float speed = 0.3f;
+    public bool paused = false;
+
 
     public int hp = 1;
     public int score;
@@ -17,10 +19,19 @@ public class BasicEnemy : MonoBehaviour
         Debug.Assert(Player);
     }
 
+    public void pauseflip()
+    {
+        paused = !paused;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (!paused)
+        {
+            Movement();
+        }
+        
     }
 
     protected virtual void Movement()
@@ -47,7 +58,10 @@ public class BasicEnemy : MonoBehaviour
             }
         }
     }
-
+    public void killenemy()
+    {
+        Destroy(this.gameObject);
+    }
     protected void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Projectile"))
@@ -58,7 +72,7 @@ public class BasicEnemy : MonoBehaviour
             {
                 //temp = GameObject.Instantiate(coinprefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
                 //Scoremanager.setScore(Score)
-                Destroy(this.gameObject);
+                killenemy();
             }
           
         }

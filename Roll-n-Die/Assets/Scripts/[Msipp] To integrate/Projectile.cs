@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
 {
     Rigidbody2D r;
     public float speed = 5f;
+    public bool paused = false;
+     Vector2 velcsave;
     //[RequireComponent(Rigidbody2D)]
     //public Vector2 speed = new Vector2(5f, 0f);
     // public float timer = 3f;
@@ -15,7 +17,12 @@ public class Projectile : MonoBehaviour
     private void Awake()
     {
         r = GetComponent<Rigidbody2D>();
-       // GetComponent<GunFace>().onShoot += Projectile.onShoot;
+        // GetComponent<GunFace>().onShoot += Projectile.onShoot;
+    }
+
+    public void pauseflip()
+    {
+        paused = !paused;
     }
     void Start()
 
@@ -27,6 +34,22 @@ public class Projectile : MonoBehaviour
     void Update()
     {
       //  transform.Translate(Vector2.up * Time.deltaTime * speed);
+      if (paused)
+        {
+            if(r.velocity != Vector2.zero)
+            {
+                velcsave = r.velocity;
+            }
+          
+            r.velocity = Vector2.zero;
+        }
+        else
+        {
+            if (r.velocity == Vector2.zero)
+            {
+                 r.velocity = velcsave;
+            }
+        }
     }
 
     public void setDirection(Vector2 dir)
