@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController :BasePlayerController2D
 {
     [SerializeField]
     private float moveSpeed = 5f;
@@ -12,7 +12,15 @@ public class PlayerController : MonoBehaviour
         paused = !paused;
     }
     // Update is called once per frame
-    void Update()
+  
+    
+
+   public void death()
+    {
+        GameManager.Instance.GameOver();
+    }
+
+    protected override void ControllerUpdate()
     {
         if (!paused)
         {
@@ -20,12 +28,10 @@ public class PlayerController : MonoBehaviour
             transform.position += movement * Time.deltaTime * moveSpeed;
         }
 
-
     }
 
-   public void death()
+    protected override void ControllerFixedUpdate()
     {
-        GameManager.Instance.GameOver();
+        throw new System.NotImplementedException();
     }
- 
 }
