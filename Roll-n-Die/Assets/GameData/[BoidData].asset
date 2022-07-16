@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7f1de9b2c961949906a13e6cfb2395, type: 3}
+  m_Name: '[BoidData]'
+  m_EditorClassIdentifier: 
+  MaxBoidsCount: 50
+  BoidSpeed: 10
+  DetectionDistanceSquared: 300
+  SeparationDistanceSquared: 3
+  SafetyDistanceSquared: 5
+  GroupingPercentage: 3
+  SeparationFGameObject: 1
+  CohesionPercentage: 1
+  FleeingPredatorPercentage: -10
+  BorderBouncingForce: 30
+  GoodPlaceAttractionFactor: 0
+  MaxVelocity: 20
