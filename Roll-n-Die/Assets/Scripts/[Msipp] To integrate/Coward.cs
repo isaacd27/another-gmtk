@@ -9,7 +9,7 @@ public class Coward : BasicEnemy
     public float cowardrad;
     public float rotationSpeed;
     //change this to whatever you want to name the enemy projectile.
-    public Projectile projPrefab;
+    public EnemyShot projPrefab;
     
     public float maxattack;
     float EnemyCool;
@@ -38,16 +38,26 @@ public class Coward : BasicEnemy
         {
             // lookat the player
 
-            transform.LookAt(Player.transform.position);
-            if(EnemyCool <= 0f){
+           // transform.LookAt(Player.transform.position);
+            if (EnemyCool <= 0f)
+            {
 
-            Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x , this.transform.position.y), this.transform.rotation);
+                EnemyShot temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x, this.transform.position.y), this.transform.rotation);
 
-              temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
-              // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+             temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+                temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
 
-              //temp.setDirection();
+                temp.setDirection(Player.transform.position - transform.position);
+
+
+            }
+            else
+            {
+                Vector2 targetDirection =   Player.transform.position - transform.position;
+                Vector2 movement = targetDirection * speed;
+                Vector2 newPos = GetComponent<Rigidbody2D>().position + movement * Time.fixedDeltaTime;
+                transform.position = newPos;
             }
 
 
