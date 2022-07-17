@@ -81,6 +81,90 @@ public class GunFace : MonoBehaviour
         return Weapon;
     }
 
+    public void RollWeapon1()
+    {
+        int wepno = (UnityEngine.Random.Range(0, 4));
+        //0 = "Pistol"
+        // 1= "Shotgun"
+        // 2 = "Stake"
+        // 3 = "Rifle"
+        // 4 = "Die"
+        /*   switch (wepno)
+           {
+               case wepno == 0: 
+
+           }*/
+
+        if (wepno == 0)
+        {
+            //plz change to switchcase if u can
+            SetWeapon("Pistol");
+        }
+        else if (wepno == 1)
+        {
+            SetWeapon("Shotgun");
+        }
+        else if (wepno == 2)
+        {
+            //i forgot how to use switchcases
+            SetWeapon("Stake");
+
+        }
+        else if (wepno == 3)
+        {
+            SetWeapon("Rifle");
+        }
+        else
+        {
+            SetWeapon("Die");
+        }
+
+    }
+
+    public void RollWeapon2()
+    {
+        while(secondary == primary)
+        {
+            int wepno = (UnityEngine.Random.Range(0, 4));
+            //0 = "Pistol"
+            // 1= "Shotgun"
+            // 2 = "Stake"
+            // 3 = "Rifle"
+            // 4 = "Die"
+            /*   switch (wepno)
+               {
+                   case wepno == 0: 
+
+               }*/
+
+            if (wepno == 0)
+            {
+                //plz change to switchcase if u can
+                SetSecondary("Pistol");
+            }
+            else if (wepno == 1)
+            {
+                SetSecondary("Shotgun");
+            }
+            else if (wepno == 2)
+            {
+                //i forgot how to use switchcases
+                SetSecondary("Stake");
+
+            }
+            else if (wepno == 3)
+            {
+                SetSecondary("Rifle");
+            }
+            else
+            {
+                SetSecondary("Die");
+            }
+        }
+       
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -242,43 +326,47 @@ public class GunFace : MonoBehaviour
         else if (Weapon == "Die")
         {
 
-            int bulletnum;
-
-            bulletnum = Mathf.RoundToInt(UnityEngine.Random.Range(1, 6));
-            if (bulletnum == 1)
+            if (diecool <= 0f)
             {
 
-                Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+                int bulletnum;
 
-                temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
-                // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-
-
-                temp.setDirection(d);
-                //  pistolcool = 1f;
-                //anim.SetBool("Rollin", false);
-                // anim.SetInteger("Rollno", bulletnum);
-                //string debug = anim.GetInteger("Rollno").ToString();
-
-
-            }
-            else
-            {
-
-                for (int i = 0; i < bulletnum; i++)
+                bulletnum = Mathf.RoundToInt(UnityEngine.Random.Range(1, 6));
+                if (bulletnum == 1)
                 {
-                    // Debug.Log("ran ");
+
                     Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
                     temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                     // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-                    float angleoffset = 0;
-                    temp.setDirection(d * (Mathf.Deg2Rad * (angleoffset * i)));
+
+
+                    temp.setDirection(d);
+                     diecool = maxdiecool;
+                    //anim.SetBool("Rollin", false);
+                    // anim.SetInteger("Rollno", bulletnum);
+                    //string debug = anim.GetInteger("Rollno").ToString();
 
 
                 }
+                else
+                {
+
+                    for (int i = 0; i < bulletnum; i++)
+                    {
+                        // Debug.Log("ran ");
+                        Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+
+                        temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+                        // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+                        float angleoffset = 0;
+                        temp.setDirection(d * (Mathf.Deg2Rad * (angleoffset * i)));
+
+                        diecool = maxdiecool;// * bulletnum; //move the comment to enable variable cooldown
+                    }
+                }
             }
 
+            }
         }
-    }
 }
