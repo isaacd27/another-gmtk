@@ -10,9 +10,7 @@ public class GunFace : MonoBehaviour
     // private PlayerMain playerMain;
     public string Weapon = "Stake";
     public float stakecool = 0.5f;
-    float coolstake;
 
-    [Header("SHOTGUN")]
     public int shotnumbul;
     public float Shotcoolstart;
     float shotcool = 5f;
@@ -22,15 +20,12 @@ public class GunFace : MonoBehaviour
     private bool canUseShotgun;
     private bool canUseRifle = true;
 
-    [Header("PISTOL")]
     public int pistolAmmo = 10;
     public float pistolcool = 1f;
-    float coolpistol;
-    [Header("RIFLE")]
+
     public int rifleAmmo = 6;
     public float rifleCool = 2f;
-    float coolrifle;
-    [Header("DICEGUN")]
+
     float diecool = 1f;
     public float maxdiecool;
 
@@ -194,9 +189,9 @@ public class GunFace : MonoBehaviour
 
 
 
-        coolpistol -= Time.deltaTime;
-        coolrifle -= Time.deltaTime;
-        coolstake -= Time.deltaTime;
+        pistolcool -= Time.deltaTime;
+        rifleCool -= Time.deltaTime;
+        stakecool -= Time.deltaTime;
         shotcool -= Time.deltaTime;
         diecool -= Time.deltaTime;
 
@@ -267,7 +262,7 @@ public class GunFace : MonoBehaviour
 
 
                     temp.setDirection(d);
-                    coolpistol = pistolcool;
+                    pistolcool = 1f;
                 
             }
 
@@ -314,7 +309,7 @@ public class GunFace : MonoBehaviour
                 temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
                 temp.setDirection(d);
-                coolstake = stakecool;
+                stakecool = 0.5f;
             }
 
         }
@@ -331,7 +326,7 @@ public class GunFace : MonoBehaviour
 
                 temp.setDirection(d);
 
-                coolrifle = rifleCool;
+                rifleCool = 0.5f;
 
             }
 

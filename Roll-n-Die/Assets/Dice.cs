@@ -20,10 +20,10 @@ public class Dice : MonoBehaviour
     private float m_rollCooldownInSeconds = 3f;
 
     private CircleCollider2D m_collider;
+    private Animation m_animationComp;
 
     private bool m_isPlayerInRange = false;
     private bool m_rollInCooldown = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +33,8 @@ public class Dice : MonoBehaviour
         m_collider = gameObject.AddComponent<CircleCollider2D>();
         m_collider.radius = m_activationRadius;
         m_collider.isTrigger = true;
+
+        m_animationComp = GetComponent<Animation>();
 
         m_rollInCooldown = false;
         m_isPlayerInRange = false;
@@ -62,6 +64,7 @@ public class Dice : MonoBehaviour
 
         if (Input.GetButtonDown("RollDice"))
         {
+            m_animationComp.Play();
             OnRoll?.Invoke();
             m_rollInCooldown = true;
             currentTimeStamp = m_rollCooldownInSeconds;

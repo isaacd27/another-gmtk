@@ -77,8 +77,6 @@ public class GameManager : MonoBehaviour
         m_gameState = GameState.Init;
         Application.targetFrameRate = 60;
         m_instance = this;
-
-        DontDestroyOnLoad(this);
     }
 
     public void SetGameState(GameState newState)
