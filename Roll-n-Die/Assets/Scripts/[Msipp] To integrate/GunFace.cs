@@ -31,6 +31,8 @@ public class GunFace : MonoBehaviour
 
     public string secondary;
     public string primary;
+
+    public bool paused = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -106,21 +108,25 @@ public class GunFace : MonoBehaviour
         stakecool -= Time.deltaTime;
         shotcool -= Time.deltaTime;
 
-        if (Input.GetAxis("Fire1") != 0)
+        if (!PlayerControllerManager.Instance.IsInputLock)
         {
-            //  if(Weapon == "Stake" || Weapon == "Grenade")
-            //  {
-            //  Weapon = "Pistol";
-            //  }
-            Weapon = primary;
-            onShoot(Direction);
-        }else if (Input.GetAxis("Fire2") != 0)
-        {
-            Weapon = secondary;
-            onShoot(Direction);
+            if (Input.GetAxis("Fire1") != 0)
+            {
+                //  if(Weapon == "Stake" || Weapon == "Grenade")
+                //  {
+                //  Weapon = "Pistol";
+                //  }
+                Weapon = primary;
+                onShoot(Direction);
+            }
+            else if (Input.GetAxis("Fire2") != 0)
+            {
+                Weapon = secondary;
+                onShoot(Direction);
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Weapon = primary;
         }
