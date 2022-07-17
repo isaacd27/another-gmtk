@@ -112,6 +112,11 @@ public class GunFace : MonoBehaviour
             //  {
             //  Weapon = "Pistol";
             //  }
+            Weapon = primary;
+            onShoot(Direction);
+        }else if (Input.GetAxis("Fire2") != 0)
+        {
+            Weapon = secondary;
             onShoot(Direction);
         }
 

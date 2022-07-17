@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
      Vector2 velcsave;
     //[RequireComponent(Rigidbody2D)]
     //public Vector2 speed = new Vector2(5f, 0f);
-    // public float timer = 3f;
+    public float timer = 3f;
     // Start is called before the first frame update
 
     private void Awake()
@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
     void Start()
 
     {
-        //Destroy(this.gameObject, timer);
+        Destroy(this.gameObject, timer);
     }
 
     // Update is called once per frame
