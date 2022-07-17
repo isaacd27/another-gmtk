@@ -46,6 +46,19 @@ public class Chaser : BasicEnemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Projectile temp = collision.gameObject.GetComponent<Projectile>();
+        if (temp != null)
+        {
+            hp -= 1;
+            //enemyhitreduction goes here
+            if (hp <= 0)
+            {
+                //temp = GameObject.Instantiate(coinprefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
+                //Scoremanager.setScore(Score)
+                killenemy();
+            }
+
+        }
         // Change this for check type instead + set collision 2d matrix layer 
         //if (collision.gameObject.CompareTag("Projectile"))
         //    hp -= 1;
