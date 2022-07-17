@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class Projectile : MonoBehaviour
+public class EnemyShot : MonoBehaviour
 {
     Rigidbody2D r;
     public float speed = 5f;
     public bool paused = false;
-     Vector2 velcsave;
+    Vector2 velcsave;
     //[RequireComponent(Rigidbody2D)]
     //public Vector2 speed = new Vector2(5f, 0f);
     public float timer = 3f;
@@ -33,21 +32,21 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //  transform.Translate(Vector2.up * Time.deltaTime * speed);
-      if (paused)
+        //  transform.Translate(Vector2.up * Time.deltaTime * speed);
+        if (paused)
         {
-            if(r.velocity != Vector2.zero)
+            if (r.velocity != Vector2.zero)
             {
                 velcsave = r.velocity;
             }
-          
+
             r.velocity = Vector2.zero;
         }
         else
         {
             if (r.velocity == Vector2.zero)
             {
-                 r.velocity = velcsave;
+                r.velocity = velcsave;
             }
         }
     }
@@ -55,25 +54,25 @@ public class Projectile : MonoBehaviour
     public void setDirection(Vector2 dir)
     {
         transform.up = dir;
-       r.velocity = new Vector2(dir.x * speed, dir.y * speed);
+        r.velocity = new Vector2(dir.x * speed, dir.y * speed);
         // speed = speed * dir;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       PlayerController tempt = collision.gameObject.GetComponent<PlayerController>();
+        BasicEnemy tempt = collision.gameObject.GetComponent<BasicEnemy>();
         if (tempt == null)
         {
             Projectile temp = collision.gameObject.GetComponent<Projectile>();
-            if(temp == null)
+            if (temp == null)
             {
                 EnemyShot shottemp = collision.gameObject.GetComponent<EnemyShot>();
-                if (shottemp == null)
+                if(shottemp == null)
                 {
                     Destroy(this.gameObject);
                     Debug.Log(collision.gameObject);
                 }
-             
+               
             }
 
 
@@ -83,9 +82,5 @@ public class Projectile : MonoBehaviour
 
         //}
     }
-
-    void onShoot()
-    {
-
-    }
 }
+
