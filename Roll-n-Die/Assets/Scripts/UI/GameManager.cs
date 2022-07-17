@@ -138,8 +138,8 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
-                m_fadingScreenManager.OnMidLoading += MidLoadingToInGame;
-                m_fadingScreenManager.OnFadeEnd += LoadingToInGame;
+                //m_fadingScreenManager.OnMidLoading += MidLoadingToInGame;
+                //m_fadingScreenManager.OnFadeEnd += LoadingToInGame;
                 break;
 
             case GameState.ScoreBoard:
@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
         m_fadingScreenManager.OnMidLoading -= MidLoadingToInGame;
         PlayerControllerManager.Instance.ResetPlayer();
 
-        PoolManager.Instance.ResetManager();
+        BattleWaveManager.Instance.ResetManager();
     }
 
     private void LoadingToInGame()
@@ -233,6 +233,8 @@ public class GameManager : MonoBehaviour
             m_gameOverPanel.SetActive(true);
         }
 
+        SetGameState(GameState.GameOver);
+
         StartCoroutine(WaitAndExecute(3f, ConfirmGameOver));
     }
 
@@ -242,7 +244,6 @@ public class GameManager : MonoBehaviour
         {
             m_gameOverPanel.SetActive(false);
         }
-        SetGameState(GameState.GameOver);
         m_fadingScreenManager.OnMidLoading += GameOverMidLoadingToScoreboard;
         m_fadingScreenManager.OnFadeEnd += GameOverLoadingToScoreboard;
         m_fadingScreenManager.Fade();

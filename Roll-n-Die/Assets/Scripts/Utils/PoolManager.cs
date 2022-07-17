@@ -14,7 +14,7 @@ public abstract class PoolManager : SingletonManager
 
 	// Parent object of where the instantiate objects are placed.
 	[SerializeField]
-	protected Transform m_folder = null;
+	protected Transform m_reserveParent = null;
 	[SerializeField]
 	private bool m_canForceInstantiateInEmergency = true;
 	[SerializeField]
@@ -23,10 +23,6 @@ public abstract class PoolManager : SingletonManager
 	// protected List<IPoolableObject> m_pool = new List<IPoolableObject>();
 	protected Dictionary<PoolObjectID, List<IPoolableObject>> m_objectPoolPerID = new Dictionary<PoolObjectID, List<IPoolableObject>>();
 
-	// Used to notify Pool children that a new object has been aded.
-	// Usefull to initialize the new object and bind method to IPoolableObject.onActivation for instance.
-	protected event System.Action<IPoolableObject> onObjectCreation = null;
-	
 	public bool IsPaused { private set; get; }
 
 	public sealed override void StartManager()
@@ -64,6 +60,10 @@ public abstract class PoolManager : SingletonManager
 	protected virtual void OnPoolManagerReset()
     { }
 
+	// Usefull to initialize the new object and bind method to IPoolableObject.onActivation for instance.
+	protected virtual void OnObjectCreation(IPoolableObject obj)
+    { }
+
 	protected void SpawnObject(PoolObjectID id, Vector3 position)
 	{
 		if (!m_objectPoolPerID.ContainsKey(id))
@@ -92,15 +92,29 @@ public abstract class PoolManager : SingletonManager
 		target.IsActive = true;
 	}
 
+	protected void SpawnObject(PoolObjectID id, Vector3 location, float radius, int count)
+	{
+		for (int i = 0; i < count; ++i)
+		{
+			SpawnObject(id, GetSpawnPointInRadius(location, radius));
+		}
+	}
+
+	protected Vector3 GetSpawnPointInRadius(Vector3 location, float radius)
+	{
+		Vector2 circlePos = Random.insideUnitCircle * radius;
+		return new Vector3(circlePos.x, circlePos.y, 0.0f) + location;
+	}
+
 	private IPoolableObject[] InstantiateBatch(IPoolableObject prefab, int count)
 	{
 		IPoolableObject[] out_array = new IPoolableObject[count];
 
 		for (int i = 0; i < count; ++i)
 		{
-			out_array[i] = Instantiate(prefab.gameObject, Vector3.zero, Quaternion.identity, m_folder).GetComponent<IPoolableObject>();
+			out_array[i] = Instantiate(prefab.gameObject, Vector3.zero, Quaternion.identity, m_reserveParent).GetComponent<IPoolableObject>();
 			out_array[i].ResetObject();
-			onObjectCreation?.Invoke(out_array[i]);
+			OnObjectCreation(out_array[i]);
 		}
 
 		return out_array;
@@ -125,11 +139,6 @@ public abstract class PoolManager : SingletonManager
         }
 	}
 	
-	protected sealed override void Awake()
-	{
-		base.Awake();
-	}
-
 	private void Start()
 	{ }
 

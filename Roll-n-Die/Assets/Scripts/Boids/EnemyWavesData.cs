@@ -28,10 +28,16 @@ public class WaveInfo
 [System.Serializable]
 public class EnemyDataPerMarker
 {
-    public Enemy prefab;
+    public MapMarkers SpawnPointMarker;
+    public EnemyWaveData[] enemiesData;
+}
+
+[System.Serializable]
+public class EnemyWaveData
+{
+    public PoolObjectID objectsID;
     public int MinNumberPerFrame;
     public int MaxCountPerFrame;
     // For instance we can have more of one type of enemy at the begining of the frame.
     public AnimationCurve SpawnRateOverTheWave;
-    public MapMarkers SpawnPoint;
 }
