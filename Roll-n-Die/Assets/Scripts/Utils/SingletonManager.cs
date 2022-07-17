@@ -8,9 +8,9 @@ public abstract class SingletonManager<T> : MonoBehaviour
 
     // You need to set m_instance = this.
     public abstract void ManagerCreation();
-    public abstract void StartManager();
-    public abstract void PauseManager(bool isPaused);
-    public abstract void ResetManager();
+    public virtual void StartManager() { }
+    public virtual void PauseManager(bool isPaused) { }
+    public virtual void ResetManager() { }
 
     private void Awake()
     {

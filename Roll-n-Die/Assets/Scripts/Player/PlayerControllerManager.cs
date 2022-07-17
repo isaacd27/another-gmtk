@@ -4,17 +4,23 @@ using UnityEngine;
 
 
 
-public class PlayerControllerManager : MonoBehaviour
+public class PlayerControllerManager : SingletonManager<PlayerControllerManager>
 {
-    private static PlayerControllerManager m_instance = null;
-    public static PlayerControllerManager Instance => m_instance;
-
     public bool IsInputLock { private set; get; } = true;
 
     [SerializeField]
     private BasePlayerController2D[] playerControllers;
     [SerializeField]
     private Transform[] m_playerSpawnPoints;
+
+    public override void ManagerCreation()
+    {
+        m_instance = this;
+        playerControllers = FindObjectsOfType<BasePlayerController2D>();
+
+        Debug.Assert(m_playerSpawnPoints != null);
+        Debug.Assert(m_playerSpawnPoints.Length >= playerControllers.Length);
+    }
 
     public void SetInputLock(bool lockInput)
     {
@@ -29,15 +35,5 @@ public class PlayerControllerManager : MonoBehaviour
         }
         
         IsInputLock = false;
-    }
-
-    private void Awake()
-    {
-        m_instance = this;
-        
-        playerControllers = FindObjectsOfType<BasePlayerController2D>();
-        
-        Debug.Assert(m_playerSpawnPoints != null);
-        Debug.Assert(m_playerSpawnPoints.Length >= playerControllers.Length);
     }
 }
