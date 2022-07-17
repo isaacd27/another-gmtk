@@ -10,6 +10,8 @@ public class GunFace : MonoBehaviour
     // private PlayerMain playerMain;
     [Header("STAKE")]
     public float stakecool = 0.5f;
+    public float coolstake = 0.1f;
+    private float m_currentStakeCD =0f;
 
     [Header("SHOTGUN")]
     public int shotnumbul = 5;
@@ -17,20 +19,22 @@ public class GunFace : MonoBehaviour
     public float shotgunSpread = 45;
     public float shotGunBulletMinVelFactor = 1;
     public float shotGunBulletMaxVelFactor = 5;
-    float shotcool = 5f; 
+    private float m_currentShotgunCD = 0f; 
 
 
     [Header("PISTOL")]
     public int pistolAmmo = 10;
     public float pistolcool = 1f;
+    private float m_currentPistolCD = 0f;
 
     [Header("RIFLE")]
     public int rifleAmmo = 6;
     public float rifleCool = 2f;
+    private float m_currentRifleCD = 0f;
 
     [Header("DICEGUN")]
-    public float diecool = 1f;
-    public float maxdiecool;
+    public float diceguncool = 1f;
+    private float m_currentDiceGunCD = 0;
 
     [Header("DEBUG?")]
     public string Weapon = "Stake";
@@ -38,9 +42,7 @@ public class GunFace : MonoBehaviour
     public string primary;
 
     public bool paused = false;
-    private bool canUseShotgun;
-    private bool canUseRifle = true;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -55,19 +57,6 @@ public class GunFace : MonoBehaviour
     public void setRammo(int Delta)
     {
         rifleAmmo += Delta;
-    }
-
-
-    public void SetCanUseShotgun()
-    {
-        canUseShotgun = true;
-        //SetWeapon(weaponShotgun);
-    }
-
-    public void SetCanUseRifle()
-    {
-        canUseRifle = true;
-        //SetWeapon(weaponRifle);
     }
 
     public void SetWeapon(String weapon)
@@ -198,11 +187,11 @@ public class GunFace : MonoBehaviour
 
 
 
-        pistolcool -= Time.deltaTime;
-        rifleCool -= Time.deltaTime;
-        stakecool -= Time.deltaTime;
-        shotcool -= Time.deltaTime;
-        diecool -= Time.deltaTime;
+        m_currentPistolCD -= Time.deltaTime;
+        m_currentRifleCD -= Time.deltaTime;
+        m_currentStakeCD -= Time.deltaTime;
+        m_currentShotgunCD -= Time.deltaTime;
+        m_currentDiceGunCD -= Time.deltaTime;
 
         if (!PlayerControllerManager.Instance.IsInputLock)
         {
@@ -259,11 +248,8 @@ public class GunFace : MonoBehaviour
     {
         if (Weapon == "Pistol")
         {
-            if (pistolcool <= 0f)
+            if (m_currentPistolCD <= 0f)
             {
-
-              
-
                     Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
 
                     temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
@@ -271,8 +257,7 @@ public class GunFace : MonoBehaviour
 
 
                     temp.setDirection(dir);
-                    pistolcool = 1f;
-                
+                    m_currentPistolCD = pistolcool;
             }
 
 
@@ -280,7 +265,7 @@ public class GunFace : MonoBehaviour
         }
         else if (Weapon == "Shotgun")
         {
-            if (shotcool <= 0f)
+            if (m_currentShotgunCD <= 0f)
             {
                 for (int i = 0; i < shotnumbul; i++)
                 {
@@ -291,14 +276,13 @@ public class GunFace : MonoBehaviour
                     Quaternion rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-shotgunSpread, shotgunSpread));
                     Vector3 newDir = rotation * transform.up;
                     temp.setDirection(newDir, UnityEngine.Random.Range(shotGunBulletMinVelFactor, shotGunBulletMaxVelFactor));// Quaternion.AngleAxis(i * 360 / shotgunSpread, dir) * Vector2.one);
-                }
-                
-                shotcool = Shotcoolstart;                
+                }                
+                m_currentShotgunCD = Shotcoolstart;                
             }
         }
         else if (Weapon == "Stake")
         {
-            if (stakecool <= 0)
+            if (m_currentStakeCD <= 0)
             {
                 Stake temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
 
@@ -306,13 +290,13 @@ public class GunFace : MonoBehaviour
                 temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
                 temp.setDirection(dir);
-                stakecool = 0.5f;
+                m_currentStakeCD = stakecool;
             }
 
         }
         else if (Weapon == "Rifle")
         {
-            if (rifleCool <= 0f)
+            if (m_currentRifleCD <= 0f)
             {
 
                 // Debug.Log("ran ");
@@ -323,16 +307,13 @@ public class GunFace : MonoBehaviour
 
                 temp.setDirection(dir);
 
-                rifleCool = 0.5f;
-
+                m_currentRifleCD = rifleCool;
             }
-
-
         }
         else if (Weapon == "Die")
         {
 
-            if (diecool <= 0f)
+            if (m_currentDiceGunCD <= 0f)
             {
 
                 int bulletnum;
@@ -348,7 +329,7 @@ public class GunFace : MonoBehaviour
 
 
                     temp.setDirection(dir);
-                     diecool = maxdiecool;
+                     m_currentDiceGunCD = diceguncool;
                     //anim.SetBool("Rollin", false);
                     // anim.SetInteger("Rollno", bulletnum);
                     //string debug = anim.GetInteger("Rollno").ToString();
@@ -366,9 +347,9 @@ public class GunFace : MonoBehaviour
                         temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                         // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
                         float angleoffset = 0;
-                        temp.setDirection(dir * (Mathf.Deg2Rad * (angleoffset * i)));
+                        temp.setDirection(dir * 360/(angleoffset * i));
 
-                        diecool = maxdiecool;// * bulletnum; //move the comment to enable variable cooldown
+                        m_currentDiceGunCD = diceguncool;// * bulletnum; //move the comment to enable variable cooldown
                     }
                 }
             }
