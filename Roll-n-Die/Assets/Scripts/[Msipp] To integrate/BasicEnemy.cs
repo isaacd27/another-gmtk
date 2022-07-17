@@ -66,7 +66,8 @@ public class BasicEnemy : MonoBehaviour
     {
 
         Projectile temp = collision.gameObject.GetComponent<Projectile>();
-        if (temp != null)
+        Stake temp2 = collision.gameObject.GetComponent<Stake>();
+        if (temp != null||temp2 != null)
         {
             hp -= 1;
             

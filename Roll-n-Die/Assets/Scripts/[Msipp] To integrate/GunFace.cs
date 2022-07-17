@@ -154,9 +154,7 @@ public class GunFace : MonoBehaviour
             if (pistolcool <= 0f)
             {
 
-                if (pistolAmmo > 0)
-                {
-                    pistolAmmo -= 1;
+              
 
                     Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
@@ -166,7 +164,7 @@ public class GunFace : MonoBehaviour
 
                     temp.setDirection(d);
                     pistolcool = 1f;
-                }
+                
             }
 
 
@@ -177,9 +175,7 @@ public class GunFace : MonoBehaviour
             if (shotcool <= 0f)
             {
 
-                if (rifleAmmo > 0)
-                {
-                    rifleAmmo -= 1;
+             
 
                     for (int i = 0; i < shotnumbul; i++)
                     {
@@ -201,7 +197,7 @@ public class GunFace : MonoBehaviour
 
 
                     shotcool = Shotcoolstart;
-                }
+                
             }
         }
         else if (Weapon == "Stake")
