@@ -131,6 +131,11 @@ public class GameManager : MonoBehaviour
                 {
                     Pause(m_gameState != GameState.Pause);
                 }
+
+                if (Input.GetKeyDown(KeyCode.L))
+                {
+                    GameOver();
+                }
                 break;
 
             case GameState.GameOver:

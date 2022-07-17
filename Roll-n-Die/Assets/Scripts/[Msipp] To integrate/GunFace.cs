@@ -130,7 +130,7 @@ public class GunFace : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Danger"))
         {
-            GameStateManager.Instance.OnDeath();
+            GameManager.Instance.GameOver();
         }
     }
 

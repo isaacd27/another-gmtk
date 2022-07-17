@@ -20,8 +20,6 @@ public class PlayerMovementController2D : BasePlayerController2D
     public float normalMovementSpeed = 1f;
     public float vacuumMovementSpeed = .5f;
     public float AngularSpeed = 1f;
-    // IsometricCharacterRenderer isoRenderer;
-
 
     Vector2 LastDirection;
     Transform OwnTransform;
