@@ -301,6 +301,7 @@ public class GameManager : MonoBehaviour
         GUILayout.Label("<b>DEBUG KEYS</b>");
         GUILayout.Label("<b>P</b>: Start next wave");
         GUILayout.Label("<b>L</b>: Force GameOver");
+        GUILayout.Label("<b>K</b>: Randomize Weapons");
         GUILayout.EndVertical();
     }
 

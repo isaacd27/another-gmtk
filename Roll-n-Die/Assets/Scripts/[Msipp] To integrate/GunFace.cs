@@ -118,6 +118,7 @@ public class GunFace : MonoBehaviour
         {
             SetWeapon("Die");
         }
+        Debug.Log("Primary: " + primary);
 
     }
 
@@ -160,8 +161,9 @@ public class GunFace : MonoBehaviour
             {
                 SetSecondary("Die");
             }
+            Debug.Log("Secondary: " + secondary);
         }
-       
+
 
     }
 
@@ -191,9 +193,16 @@ public class GunFace : MonoBehaviour
         rifleCool -= Time.deltaTime;
         stakecool -= Time.deltaTime;
         shotcool -= Time.deltaTime;
+        diecool -= Time.deltaTime;
 
         if (!PlayerControllerManager.Instance.IsInputLock)
         {
+
+            if (Input.GetKey(KeyCode.K))
+            {
+                RollWeapon1();
+                RollWeapon2();
+            }
             if (Input.GetAxis("Fire1") != 0)
             {
                 //  if(Weapon == "Stake" || Weapon == "Grenade")
