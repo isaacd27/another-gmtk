@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2533856042559552199}
   - component: {fileID: 2533856042559552219}
   m_Layer: 8
-  m_Name: P_Coward
+  m_Name: as
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,11 +156,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 5975475096431322549, guid: c8b119820c01c694f84fe5ac5c5550e2, type: 3}
-  speed: 3
+  speed: 2
   paused: 0
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2533856042559552199}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: Kill
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   hp: 1
   score: 5
-  cowardrad: 3
+  cowardrad: 1
   rotationSpeed: 5
   projPrefab: {fileID: 1688239370933827147, guid: c8b119820c01c694f84fe5ac5c5550e2, type: 3}
-  maxattack: 1
+  maxattack: 3

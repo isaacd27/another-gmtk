@@ -92,8 +92,14 @@ public class GunFace : MonoBehaviour
 
     public void RollWeapon1()
     {
-        int wepno = (UnityEngine.Random.Range(0, (int)WeaponType.Count));
-        SetWeapon((WeaponType)wepno);
+        WeaponType wepno;
+
+        do
+        {
+            wepno = (WeaponType)(UnityEngine.Random.Range(0, (int)WeaponType.Count));
+        } while (wepno == secondary);
+
+        SetWeapon(wepno);
     }
 
     public void RollWeapon2()

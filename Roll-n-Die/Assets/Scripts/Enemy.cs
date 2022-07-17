@@ -32,19 +32,22 @@ public class Enemy : IPoolableObject
 
     void Death()
     {
-        BoidsManager.Instance.Boids.Remove(gameObject);
+        // BoidsManager.Instance.Boids.Remove(gameObject);
         Vector3 newLoc = transform.position;
         newLoc.z = 0;
         // Instantiate(Prefab, newLoc, Quaternion.identity);
         OnDeath?.Invoke();
-        Spawner gao = FindObjectOfType<Spawner>();
-        if(gao)
-        {
-            gao.SpawnAt(gameObject.transform);
-        }
+        //Spawner gao = FindObjectOfType<Spawner>();
+        //if(gao)
+        //{
+        //    gao.SpawnAt(gameObject.transform);
+        //}
+
+        IsActive = false;
+        
         // AudioManager.Instance.PlayHumanDyingRandomAudio(newLoc);
         //StartCoroutine(DelayBeforeKill_Coroutine());
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
     }
 
     public void applyDmg(int dmg)
@@ -55,6 +58,11 @@ public class Enemy : IPoolableObject
     public void Kill()
     {
         Life = 0;
+    }
+
+    protected override void OnReset()
+    {
+        Life = 1;
     }
 
     //IEnumerator DelayBeforeKill_Coroutine()

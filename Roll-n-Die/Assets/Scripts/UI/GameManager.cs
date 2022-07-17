@@ -184,6 +184,8 @@ public class GameManager : MonoBehaviour
         m_fadingScreenManager.OnFadeEnd -= LoadingToInGame;
         m_HUD.SetActive(true);
         SetGameState(GameState.InGame);
+
+        StartCoroutine(WaitAndExecute(1f, BattleWaveManager.Instance.StartNextWave));
     }
 
 
@@ -285,6 +287,7 @@ public class GameManager : MonoBehaviour
         action?.Invoke();
     }
 
+#if UNITY_EDITOR
     private void OnGUI()
     {
         GUILayout.BeginVertical(GUI.skin.box, GUILayout.Width(200));
@@ -299,6 +302,7 @@ public class GameManager : MonoBehaviour
         GUILayout.Label("<b>------------</b>");
         GUILayout.Label("<b>Wave Manager</b>");
         UIDebugDrawLabelValue("Current Wave", BattleWaveManager.Instance.CurrentWaveIndex.ToString());
+        UIDebugDrawLabelValue("Remaining Enemies", EnemyPoolManager.Instance.RemainingEnemies.ToString());
         
         GUILayout.Label("<b>------------</b>");
         GUILayout.Label("<b>DEBUG KEYS</b>");
@@ -307,6 +311,7 @@ public class GameManager : MonoBehaviour
         GUILayout.Label("<b>K</b>: Randomize Weapons");
         GUILayout.EndVertical();
     }
+#endif
 
     private void UIDebugDrawLabelValue(string label, string value)
     {

@@ -32,7 +32,7 @@ public abstract class IPoolableObject : MonoBehaviour
 			if (IsActive == value)
 				return;
 
-			if (IsActive)
+			if (value)
             {
 				onActivation?.Invoke();
             }

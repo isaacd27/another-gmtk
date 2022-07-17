@@ -9,8 +9,9 @@ public class EnemyPoolManager : PoolManager<EnemyPoolManager>
 	[SerializeField] private Transform spawnPointsParent = null;
 
 	private int enemyCount = 0;
-	// Callback once all enemy of the spawner have been killed.
-	public UnityEvent OnAllEnemyDisabled = new UnityEvent();
+	public int RemainingEnemies => enemyCount;
+    // Callback once all enemy of the spawner have been killed.
+    public UnityEvent OnAllEnemyDisabled = new UnityEvent();
 	
 	[SerializeField]
 	private Dictionary<MapMarkers, PoolSpawnRadius> m_spawnPointPerMarker;
@@ -64,6 +65,11 @@ public void StartWave(EnemyDataPerMarker[] data)
         base.OnPoolManagerStart();
     }
 
+    protected override void OnObjectSpawned(IPoolableObject obj)
+    {
+        ++enemyCount;
+    }
+
     protected override void OnPoolManagerReset()
     {
 
@@ -90,7 +96,6 @@ public void StartWave(EnemyDataPerMarker[] data)
 
     protected override void OnObjectCreation(IPoolableObject poolObj)
     {
-        ++enemyCount;
         poolObj.onDeactivation += () =>
         {
             --enemyCount;
@@ -123,14 +128,14 @@ public void StartWave(EnemyDataPerMarker[] data)
 //		}
 //	}
 
-//	private void OnEnemyCreated(PoolObject poolObj)
-//	{
-//		++enemyCount;
-//		poolObj.onDisable += () =>
-//		{
-//			--enemyCount;
-//			if (enemyCount == 0)
-//				OnAllEnemyDisabled.Invoke();
-//		};
-//	}
+    //private void OnEnemyCreated(PoolObject poolObj)
+    //{
+    //    ++enemyCount;
+    //    poolObj.onDisable += () =>
+    //    {
+    //        --enemyCount;
+    //        if (enemyCount == 0)
+    //            OnAllEnemyDisabled.Invoke();
+    //    };
+    //}
 //}

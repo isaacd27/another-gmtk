@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BasicEnemy : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class BasicEnemy : MonoBehaviour
     public GameObject Player;
     public float speed = 0.3f;
     public bool paused = false;
-
+    public UnityEvent OnDeath; 
 
     public int hp = 1;
     public int score;
@@ -58,9 +59,11 @@ public class BasicEnemy : MonoBehaviour
             }
         }
     }
+
     public void killenemy()
     {
-        Destroy(this.gameObject);
+        OnDeath?.Invoke();
+        //Destroy(this.gameObject);
     }
     protected void OnCollisionEnter2D(Collision2D collision)
     {

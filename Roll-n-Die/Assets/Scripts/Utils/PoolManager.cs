@@ -65,6 +65,9 @@ public abstract class PoolManager<T> : SingletonManager<T>
 	protected virtual void OnObjectCreation(IPoolableObject obj)
     { }
 
+	protected virtual void OnObjectSpawned(IPoolableObject obj)
+	{ }
+
 	protected void SpawnObject(PoolObjectID id, Vector3 position)
 	{
 		if (!m_objectPoolPerID.ContainsKey(id))
@@ -91,6 +94,7 @@ public abstract class PoolManager<T> : SingletonManager<T>
 
 		target.Position = position;
 		target.IsActive = true;
+		OnObjectSpawned(target);
 	}
 
 	protected void SpawnObject(PoolObjectID id, Vector3 location, float radius, int count)

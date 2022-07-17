@@ -11,7 +11,7 @@ public class Coward : BasicEnemy
     //change this to whatever you want to name the enemy projectile.
     public EnemyShot projPrefab;
     
-    public float maxattack;
+    public float maxattack = 1;
     float EnemyCool;
     // Update is called once per frame
 
@@ -23,8 +23,6 @@ public class Coward : BasicEnemy
 
     protected override void Movement()
     {
-
-
         float coward = Vector3.Distance(transform.position, Player.transform.position);
 
         if (coward <= cowardrad)
@@ -50,7 +48,7 @@ public class Coward : BasicEnemy
 
                 temp.setDirection(Player.transform.position - transform.position);
 
-
+                EnemyCool = maxattack;
             }
             else
             {
