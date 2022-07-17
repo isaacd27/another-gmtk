@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-public class BattleWaveManager : SingletonManager
+public class BattleWaveManager : SingletonManager<BattleWaveManager>
 {
     [SerializeField]
     private EnemyWavesData m_data;
@@ -15,11 +15,11 @@ public class BattleWaveManager : SingletonManager
     public override void ManagerCreation()
     {
         m_currentWaveIndex = 0;
+        m_instance = this;
     }
 
     public override void StartManager()
     {
-        m_pool = EnemyPoolManager.GetInstance<EnemyPoolManager>();
     }
 
     public override void PauseManager(bool isPaused)
@@ -30,7 +30,8 @@ public class BattleWaveManager : SingletonManager
     public override void ResetManager()
     {
         m_currentWaveIndex = 0;
-        m_pool.ResetManager();
+
+        EnemyPoolManager.Instance.ResetManager();
     }
 
     [ContextMenu("Start Next Wave")]
@@ -44,6 +45,7 @@ public class BattleWaveManager : SingletonManager
         }
 
         WaveInfo cwave = m_data.WavesInfos[m_currentWaveIndex - 1];
-        m_pool.StartWave(cwave.Enemies);
+
+        EnemyPoolManager.Instance.StartWave(cwave.Enemies);
     }
 }

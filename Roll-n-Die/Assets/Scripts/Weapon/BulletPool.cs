@@ -1,8 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class BulletPool : PoolManager
+public class BulletPool : PoolManager<BulletPool>
 {
+	public override void ManagerCreation()
+	{
+		m_instance = this;
+	}
+
 	//public static BulletPool Instance { get; private set; } = null;
 
 	//private Action<Bullet> initialization = null;

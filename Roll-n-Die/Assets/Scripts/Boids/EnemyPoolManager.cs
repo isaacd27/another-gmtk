@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using System.Collections.Generic;
 
-public class EnemyPoolManager : PoolManager
+public class EnemyPoolManager : PoolManager<EnemyPoolManager>
 {
 	// [SerializeField] private int initialCount = 0;
 	// parent of PoolSpawnRadius
@@ -21,7 +21,12 @@ public class EnemyPoolManager : PoolManager
 	private string m_debugString;
 #endif
 
-    public void StartWave(EnemyDataPerMarker[] data)
+    public override void ManagerCreation() 
+    {
+        m_instance = this;
+    }
+
+public void StartWave(EnemyDataPerMarker[] data)
     {
         foreach (var d in data)
         {

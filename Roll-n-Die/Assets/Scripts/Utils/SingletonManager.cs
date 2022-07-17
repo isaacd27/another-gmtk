@@ -1,25 +1,19 @@
 using UnityEngine;
 
-public abstract class SingletonManager : MonoBehaviour
+public abstract class SingletonManager<T> : MonoBehaviour
+    where T: class
 {
-    public static SingletonManager Instance => m_instance;
-    private static SingletonManager m_instance = null;
+    public static T Instance => m_instance;
+    protected static T m_instance = null;
 
-    public virtual void ManagerCreation() { }
+    // You need to set m_instance = this.
+    public abstract void ManagerCreation();
     public abstract void StartManager();
     public abstract void PauseManager(bool isPaused);
     public abstract void ResetManager();
 
-    public static T GetInstance<T>()
-        where T: class
-    {
-        return m_instance as T;
-    }
-
-
     private void Awake()
     {
         ManagerCreation();
-        m_instance = this;
     }
 }

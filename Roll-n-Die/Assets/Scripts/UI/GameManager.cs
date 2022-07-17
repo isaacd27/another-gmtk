@@ -131,10 +131,17 @@ public class GameManager : MonoBehaviour
                     Pause(m_gameState != GameState.Pause);
                 }
 
+#if UNITY_EDITOR
                 if (Input.GetKeyDown(KeyCode.L))
                 {
                     GameOver();
                 }
+
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    BattleWaveManager.Instance.StartNextWave();
+                }
+#endif
                 break;
 
             case GameState.GameOver:
@@ -277,11 +284,15 @@ public class GameManager : MonoBehaviour
 
     private void OnGUI()
     {
-        GUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.BeginVertical(GUI.skin.box, GUILayout.Width(200));
         GUILayout.Label("<b>------------</b>");
         GUILayout.Label("<b>Game Manager</b>");
         UIDebugDrawLabelValue("Game State", m_gameState.ToString());
         UIDebugDrawLabelValue("Player Input Lock", PlayerControllerManager.Instance.IsInputLock.ToString());
+        GUILayout.Label("<b>------------</b>");
+        GUILayout.Label("<b>DEBUG KEYS</b>");
+        GUILayout.Label("<b>P</b>: Start next wave");
+        GUILayout.Label("<b>L</b>: Force GameOver");
         GUILayout.EndVertical();
     }
 
