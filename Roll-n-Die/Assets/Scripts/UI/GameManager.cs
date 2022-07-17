@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
     private FadingScreenManager m_fadingScreenManager = null;
     [SerializeField]
     private GameObject m_inGamePauseMenuPanel = null;
-
+    [SerializeField]
+    private GameObject m_HUD = null;
     [SerializeField]
     private GameObject m_gameOverPanel = null;
     [SerializeField]
@@ -71,8 +72,10 @@ public class GameManager : MonoBehaviour
         Debug.Assert(m_frontEndPanel != null);
         Debug.Assert(m_inGamePauseMenuPanel != null);
         Debug.Assert(m_fadingScreenManager != null);
+        Debug.Assert(m_HUD != null);
         m_frontEndPanel.SetActive(false);
         m_inGamePauseMenuPanel.SetActive(false);
+        m_HUD.SetActive(false);
 
         m_gameState = GameState.Init;
         Application.targetFrameRate = 60;
@@ -173,13 +176,13 @@ public class GameManager : MonoBehaviour
     {
         m_fadingScreenManager.OnMidLoading -= MidLoadingToInGame;
         PlayerControllerManager.Instance.ResetPlayer();
-
         BattleWaveManager.Instance.ResetManager();
     }
 
     private void LoadingToInGame()
     {
         m_fadingScreenManager.OnFadeEnd -= LoadingToInGame;
+        m_HUD.SetActive(true);
         SetGameState(GameState.InGame);
     }
 
@@ -190,12 +193,14 @@ public class GameManager : MonoBehaviour
     {
         if (m_gameState != GameState.Pause && pause)
         {
+            m_HUD.SetActive(false);
             SetGameState(GameState.Pause);
             PlayerControllerManager.Instance.SetInputLock(true);
             m_inGamePauseMenuPanel.SetActive(true);
         }
         else if (m_gameState == GameState.Pause && !pause)
         {
+            m_HUD.SetActive(true);
             SetGameState(GameState.InGame);
             PlayerControllerManager.Instance.SetInputLock(false);
             m_inGamePauseMenuPanel.SetActive(false);

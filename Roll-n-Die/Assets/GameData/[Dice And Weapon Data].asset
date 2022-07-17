@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d547fa4aba636c04f80265a56f65cf6c, type: 3}
+  m_Name: '[Dice And Weapon Data]'
+  m_EditorClassIdentifier: 
+  Definitions:
+  - weaponType: 0
+    weaponSprite: {fileID: 21300000, guid: 794cb96fadc36874ab436e07e8b6ab7b, type: 3}
+    diceSprite: {fileID: 21300000, guid: 533c59ad519bd6646a5db4a03b034117, type: 3}
+  - weaponType: 1
+    weaponSprite: {fileID: 21300000, guid: 4555df6407e3a8a4daa82b2a63e9ef05, type: 3}
+    diceSprite: {fileID: 21300000, guid: 76887cdbd35cd4b439a2b0231f67a722, type: 3}
+  - weaponType: 3
+    weaponSprite: {fileID: 21300000, guid: 66a42d75d08a3a44a9df1ad27581d2e9, type: 3}
+    diceSprite: {fileID: 21300000, guid: 5d2e32cb82613e94ba4f7dd38f017beb, type: 3}
+  - weaponType: 2
+    weaponSprite: {fileID: 21300000, guid: 48459694fbe2c3b4b912596759bd2d75, type: 3}
+    diceSprite: {fileID: 21300000, guid: 954d89364cd3c3b44aa4f547ebb0e7eb, type: 3}
+  - weaponType: 4
+    weaponSprite: {fileID: 21300000, guid: 1c6e1d2630867f543b5b870411af27bf, type: 3}
+    diceSprite: {fileID: 21300000, guid: 1d741ba338455e34e932b4b8cae03dd1, type: 3}

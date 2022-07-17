@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class WeaponUpdateEvent : UnityEvent<WeaponType> { }
 
 public class GunFace : MonoBehaviour
 {
@@ -11,7 +15,7 @@ public class GunFace : MonoBehaviour
     [Header("STAKE")]
     public float stakecool = 0.5f;
     public float coolstake = 0.1f;
-    private float m_currentStakeCD =0f;
+    private float m_currentStakeCD = 0f;
 
     [Header("SHOTGUN")]
     public int shotnumbul = 5;
@@ -19,7 +23,7 @@ public class GunFace : MonoBehaviour
     public float shotgunSpread = 45;
     public float shotGunBulletMinVelFactor = 1;
     public float shotGunBulletMaxVelFactor = 5;
-    private float m_currentShotgunCD = 0f; 
+    private float m_currentShotgunCD = 0f;
 
 
     [Header("PISTOL")]
@@ -36,17 +40,22 @@ public class GunFace : MonoBehaviour
     public float diceguncool = 1f;
     private float m_currentDiceGunCD = 0;
 
+    [Header("Events")]
+    public WeaponUpdateEvent OnPrimaryWeaponUpdate;
+    public WeaponUpdateEvent OnSecondaryWeaponUpdate;
+
     [Header("DEBUG?")]
-    public string Weapon = "Stake";
-    public string secondary;
-    public string primary;
+    public WeaponType Weapon = WeaponType.Stake;
+    public WeaponType secondary;
+    public WeaponType primary;
 
     public bool paused = false;
-    
+
     // Start is called before the first frame update
     void Start()
     {
-
+        SetWeapon(WeaponType.Stake);
+        SetSecondary(WeaponType.Pistol);
     }
 
     public void setPammo(int Delta)
@@ -59,109 +68,44 @@ public class GunFace : MonoBehaviour
         rifleAmmo += Delta;
     }
 
-    public void SetWeapon(String weapon)
+    public void SetWeapon(WeaponType weapon)
     {
         Weapon = weapon;
         primary = weapon;
+        OnPrimaryWeaponUpdate?.Invoke(weapon);
+
         //playerMain.PlayerSwapAimNormal.SetWeapon(weapon);
         // OnWeaponChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public void SetSecondary(String weapon)
+    public void SetSecondary(WeaponType weapon)
     {
         secondary = weapon;
+        OnSecondaryWeaponUpdate?.Invoke(weapon);
     }
 
 
-    public String GetWeapon()
+    public WeaponType GetWeapon()
     {
         return Weapon;
     }
 
     public void RollWeapon1()
     {
-        int wepno = (UnityEngine.Random.Range(0, 5));
-        //0 = "Pistol"
-        // 1= "Shotgun"
-        // 2 = "Stake"
-        // 3 = "Rifle"
-        // 4 = "Die"
-        /*   switch (wepno)
-           {
-               case wepno == 0: 
-
-           }*/
-
-        if (wepno == 0)
-        {
-            //plz change to switchcase if u can
-            SetWeapon("Pistol");
-        }
-        else if (wepno == 1)
-        {
-            SetWeapon("Shotgun");
-        }
-        else if (wepno == 2)
-        {
-            //i forgot how to use switchcases
-            SetWeapon("Stake");
-
-        }
-        else if (wepno == 3)
-        {
-            SetWeapon("Rifle");
-        }
-        else
-        {
-            SetWeapon("Die");
-        }
-        Debug.Log("Primary: " + primary);
-
+        int wepno = (UnityEngine.Random.Range(0, (int)WeaponType.Count));
+        SetWeapon((WeaponType)wepno);
     }
 
     public void RollWeapon2()
     {
-        while(secondary == primary)
+        WeaponType wepno;
+
+        do
         {
-            int wepno = (UnityEngine.Random.Range(0, 5));
-            //0 = "Pistol"
-            // 1= "Shotgun"
-            // 2 = "Stake"
-            // 3 = "Rifle"
-            // 4 = "Die"
-            /*   switch (wepno)
-               {
-                   case wepno == 0: 
+            wepno = (WeaponType)(UnityEngine.Random.Range(0, (int)WeaponType.Count));
+        } while (wepno == primary);
 
-               }*/
-
-            if (wepno == 0)
-            {
-                //plz change to switchcase if u can
-                SetSecondary("Pistol");
-            }
-            else if (wepno == 1)
-            {
-                SetSecondary("Shotgun");
-            }
-            else if (wepno == 2)
-            {
-                //i forgot how to use switchcases
-                SetSecondary("Stake");
-
-            }
-            else if (wepno == 3)
-            {
-                SetSecondary("Rifle");
-            }
-            else
-            {
-                SetSecondary("Die");
-            }
-            Debug.Log("Secondary: " + secondary);
-        }
-
-
+        SetSecondary(wepno);
     }
 
     // Update is called once per frame
@@ -196,9 +140,12 @@ public class GunFace : MonoBehaviour
         if (!PlayerControllerManager.Instance.IsInputLock)
         {
 
-            if (Input.GetKey(KeyCode.K))
+            if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.F1))
             {
                 RollWeapon1();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.F2))
+            {
                 RollWeapon2();
             }
             if (Input.GetAxis("Fire1") != 0)
@@ -217,7 +164,7 @@ public class GunFace : MonoBehaviour
             }
         }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             Weapon = primary;
         }
@@ -246,114 +193,131 @@ public class GunFace : MonoBehaviour
 
     public void onShoot(Vector2 dir)
     {
-        if (Weapon == "Pistol")
+        switch (Weapon)
         {
-            if (m_currentPistolCD <= 0f)
-            {
-                    Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
-
-                    temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
-                    // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-
-
-                    temp.setDirection(dir);
-                    m_currentPistolCD = pistolcool;
-            }
-
-
-
+            case WeaponType.Stake:
+                StakeShoot(dir);
+                break;
+            case WeaponType.Pistol:
+                PistolShoot(dir);
+                break;
+            case WeaponType.Rifle:
+                RifleShoot(dir);
+                break;
+            case WeaponType.Shotgun:
+                ShotgunShoot(dir);
+                break;
+            case WeaponType.DiceGun:
+                DiceGunShoot(dir);
+                break;
+            default:
+                break;
         }
-        else if (Weapon == "Shotgun")
+    }
+
+    private void PistolShoot(Vector2 dir)
+    {
+        if (m_currentPistolCD <= 0f)
         {
-            if (m_currentShotgunCD <= 0f)
-            {
-                for (int i = 0; i < shotnumbul; i++)
-                {
-                    Vector3 spawnLocation = new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y) + (transform.up * UnityEngine.Random.Range(0.01f, 0.1f));
-                    Projectile temp = GameObject.Instantiate(projPrefab, spawnLocation, Quaternion.identity);
-                    
-                    // Just because you love quaternion :3
-                    Quaternion rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-shotgunSpread, shotgunSpread));
-                    Vector3 newDir = rotation * transform.up;
-                    temp.setDirection(newDir, UnityEngine.Random.Range(shotGunBulletMinVelFactor, shotGunBulletMaxVelFactor));// Quaternion.AngleAxis(i * 360 / shotgunSpread, dir) * Vector2.one);
-                }                
-                m_currentShotgunCD = Shotcoolstart;                
-            }
+            Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
+
+            temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+            // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+            temp.setDirection(dir);
+            m_currentPistolCD = pistolcool;
         }
-        else if (Weapon == "Stake")
+    }
+
+    private void ShotgunShoot(Vector2 dir)
+    {
+        if (m_currentShotgunCD <= 0f)
         {
-            if (m_currentStakeCD <= 0)
+            for (int i = 0; i < shotnumbul; i++)
             {
-                Stake temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
+                Vector3 spawnLocation = new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y) + (transform.up * UnityEngine.Random.Range(0.01f, 0.1f));
+                Projectile temp = GameObject.Instantiate(projPrefab, spawnLocation, Quaternion.identity);
 
-                temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
-                temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-
-                temp.setDirection(dir);
-                m_currentStakeCD = stakecool;
+                // Just because you love quaternion :3
+                Quaternion rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-shotgunSpread, shotgunSpread));
+                Vector3 newDir = rotation * transform.up;
+                temp.setDirection(newDir, UnityEngine.Random.Range(shotGunBulletMinVelFactor, shotGunBulletMaxVelFactor));// Quaternion.AngleAxis(i * 360 / shotgunSpread, dir) * Vector2.one);
             }
-
+            m_currentShotgunCD = Shotcoolstart;
         }
-        else if (Weapon == "Rifle")
+    }
+
+    private void StakeShoot(Vector2 dir)
+    {
+        if (m_currentStakeCD <= 0)
         {
-            if (m_currentRifleCD <= 0f)
+            Stake temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
+
+            temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+            temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+            temp.setDirection(dir);
+            m_currentStakeCD = stakecool;
+        }
+    }
+
+    private void RifleShoot(Vector2 dir)
+    {
+        if (m_currentRifleCD <= 0f)
+        {
+
+            // Debug.Log("ran ");
+            Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
+
+            temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
+            // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+            temp.setDirection(dir);
+
+            m_currentRifleCD = rifleCool;
+        }
+    }
+
+    private void DiceGunShoot(Vector2 dir)
+    {
+        if (m_currentDiceGunCD <= 0f)
+        {
+
+            int bulletnum;
+
+            bulletnum = Mathf.RoundToInt(UnityEngine.Random.Range(1, 6));
+            if (bulletnum == 1)
             {
 
-                // Debug.Log("ran ");
                 Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
 
                 temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                 // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
+
                 temp.setDirection(dir);
+                m_currentDiceGunCD = diceguncool;
+                //anim.SetBool("Rollin", false);
+                // anim.SetInteger("Rollno", bulletnum);
+                //string debug = anim.GetInteger("Rollno").ToString();
 
-                m_currentRifleCD = rifleCool;
             }
-        }
-        else if (Weapon == "Die")
-        {
-
-            if (m_currentDiceGunCD <= 0f)
+            else
             {
 
-                int bulletnum;
-
-                bulletnum = Mathf.RoundToInt(UnityEngine.Random.Range(1, 6));
-                if (bulletnum == 1)
+                for (int i = 0; i < bulletnum; i++)
                 {
-
+                    // Debug.Log("ran ");
                     Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
 
                     temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                     // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+                    float angleoffset = 0;
+                    temp.setDirection(dir * 360 / (angleoffset * i));
 
-
-                    temp.setDirection(dir);
-                     m_currentDiceGunCD = diceguncool;
-                    //anim.SetBool("Rollin", false);
-                    // anim.SetInteger("Rollno", bulletnum);
-                    //string debug = anim.GetInteger("Rollno").ToString();
-
-
+                    m_currentDiceGunCD = diceguncool;// * bulletnum; //move the comment to enable variable cooldown
                 }
-                else
-                {
-
-                    for (int i = 0; i < bulletnum; i++)
-                    {
-                        // Debug.Log("ran ");
-                        Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + dir.x, this.transform.position.y + dir.y), this.transform.rotation);
-
-                        temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
-                        // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-                        float angleoffset = 0;
-                        temp.setDirection(dir * 360/(angleoffset * i));
-
-                        m_currentDiceGunCD = diceguncool;// * bulletnum; //move the comment to enable variable cooldown
-                    }
-                }
-            }
-
             }
         }
+    }
 }
