@@ -32,6 +32,5 @@ public class PlayerController :BasePlayerController2D
 
     protected override void ControllerFixedUpdate()
     {
-        throw new System.NotImplementedException();
     }
 }
