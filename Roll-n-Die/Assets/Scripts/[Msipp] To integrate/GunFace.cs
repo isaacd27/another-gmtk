@@ -255,7 +255,7 @@ public class GunFace : MonoBehaviour
     {
         if (Weapon == "Pistol")
         {
-            if (pistolcool <= 0f)
+            if (coolpistol <= 0f)
             {
 
               
@@ -306,7 +306,7 @@ public class GunFace : MonoBehaviour
         }
         else if (Weapon == "Stake")
         {
-            if (stakecool <= 0)
+            if (coolstake <= 0)
             {
                 Stake temp = Instantiate(staPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), this.transform.rotation);
 
@@ -320,7 +320,7 @@ public class GunFace : MonoBehaviour
         }
         else if (Weapon == "Rifle")
         {
-            if (rifleCool <= 0f)
+            if (coolrifle <= 0f)
             {
 
                 // Debug.Log("ran ");
