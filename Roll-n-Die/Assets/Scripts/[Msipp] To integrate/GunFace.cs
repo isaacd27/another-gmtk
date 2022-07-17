@@ -16,6 +16,7 @@ public class GunFace : MonoBehaviour
     public int shotnumbul;
     public float Shotcoolstart;
     float shotcool = 5f;
+    public int shotspread = 45;
 
 
 
@@ -288,12 +289,12 @@ public class GunFace : MonoBehaviour
                         Projectile temp = GameObject.Instantiate(projPrefab, new Vector3(this.transform.position.x + d.x, this.transform.position.y + d.y), Quaternion.AngleAxis(i * 360 / 45, d));
                         temp.transform.position = this.transform.position + transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
 
-                        //temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+                    //temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
 
-                        temp.setDirection(Quaternion.AngleAxis(i * 360 / 45, d) * Vector2.one);
+                    temp.setDirection(d * (180/shotspread * i));
 
 
-                    }
+                }
 
 
 
@@ -374,7 +375,7 @@ public class GunFace : MonoBehaviour
                         temp.transform.position = this.transform.position + this.transform.up * 0.4f * Mathf.Sign(this.transform.localScale.x);
                         // temp.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
                         float angleoffset = 0;
-                        temp.setDirection(d * (Mathf.Deg2Rad * (angleoffset * i)));
+                        temp.setDirection(d * 360/(angleoffset * i));
 
                         diecool = maxdiecool;// * bulletnum; //move the comment to enable variable cooldown
                     }
