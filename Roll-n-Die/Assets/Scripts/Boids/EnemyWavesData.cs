@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu()]
 public class EnemyWavesData : ScriptableObject
@@ -18,18 +19,23 @@ public class EnemyWavesData : ScriptableObject
 [System.Serializable]
 public class WaveInfo
 {
-    public int WaveLevel;
-    [Min(0)]
-    public float DurationInSeconds = 10;
-    public AnimationCurve GlobalSpawnRate;
-    public EnemyDataPerMarker[] Enemies;
+    // public int WaveLevel;
+    // [Min(0)]
+    // public float DurationInSeconds = 10;
+    // public AnimationCurve GlobalSpawnRate;
+    [FormerlySerializedAs("Enemies")]
+    [FormerlySerializedAs("SpawnerDefinition")]
+    public EnemyDataPerMarker[] SpawnerDefinitions;
 }
 
 [System.Serializable]
 public class EnemyDataPerMarker
 {
     public MapMarkers SpawnPointMarker;
-    public EnemyWaveData[] enemiesData;
+    [FormerlySerializedAs("enemiesData")]
+    [FormerlySerializedAs("EnemiesSpawnDefinition")]
+    [FormerlySerializedAs("EnemySpawnDefinition")]
+    public EnemyWaveData[] EnemySpawnDefinitions;
 }
 
 [System.Serializable]
@@ -39,5 +45,5 @@ public class EnemyWaveData
     public int MinNumberPerFrame;
     public int MaxCountPerFrame;
     // For instance we can have more of one type of enemy at the begining of the frame.
-    public AnimationCurve SpawnRateOverTheWave;
+    // public AnimationCurve SpawnRateOverTheWave;
 }

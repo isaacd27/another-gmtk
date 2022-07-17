@@ -39,9 +39,9 @@ public void StartWave(EnemyDataPerMarker[] data)
 
             PoolSpawnRadius spawnPoint = m_spawnPointPerMarker[d.SpawnPointMarker];
 
-            for (int i = 0, c = d.enemiesData.Length; i < c; ++i)
+            for (int i = 0, c = d.EnemySpawnDefinitions.Length; i < c; ++i)
             {
-                EnemyWaveData ewd = d.enemiesData[i];
+                EnemyWaveData ewd = d.EnemySpawnDefinitions[i];
                 int count = Random.Range(ewd.MinNumberPerFrame, ewd.MaxCountPerFrame);
                 SpawnObject(ewd.objectsID, spawnPoint.transform.position, spawnPoint.Radius, count);
             }

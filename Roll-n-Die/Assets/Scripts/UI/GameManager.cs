@@ -289,6 +289,11 @@ public class GameManager : MonoBehaviour
         GUILayout.Label("<b>Game Manager</b>");
         UIDebugDrawLabelValue("Game State", m_gameState.ToString());
         UIDebugDrawLabelValue("Player Input Lock", PlayerControllerManager.Instance.IsInputLock.ToString());
+
+        GUILayout.Label("<b>------------</b>");
+        GUILayout.Label("<b>Wave Manager</b>");
+        UIDebugDrawLabelValue("Current Wave", BattleWaveManager.Instance.CurrentWaveIndex.ToString());
+        
         GUILayout.Label("<b>------------</b>");
         GUILayout.Label("<b>DEBUG KEYS</b>");
         GUILayout.Label("<b>P</b>: Start next wave");

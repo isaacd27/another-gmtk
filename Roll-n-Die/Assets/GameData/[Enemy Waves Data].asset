@@ -13,53 +13,21 @@ MonoBehaviour:
   m_Name: '[Enemy Waves Data]'
   m_EditorClassIdentifier: 
   m_wavesInfos:
-  - WaveLevel: 0
-    DurationInSeconds: 0
-    GlobalSpawnRate:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 0
-      m_PostInfinity: 0
-      m_RotationOrder: 0
-    Enemies:
+  - SpawnerDefinitions:
     - SpawnPointMarker: 6
-      enemiesData:
+      EnemySpawnDefinitions:
       - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
         MinNumberPerFrame: 3
         MaxCountPerFrame: 5
-        SpawnRateOverTheWave:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 0
-          m_PostInfinity: 0
-          m_RotationOrder: 0
       - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
         MinNumberPerFrame: 1
         MaxCountPerFrame: 3
-        SpawnRateOverTheWave:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 0
-          m_PostInfinity: 0
-          m_RotationOrder: 0
     - SpawnPointMarker: 0
-      enemiesData:
+      EnemySpawnDefinitions:
       - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
         MinNumberPerFrame: 3
         MaxCountPerFrame: 5
-        SpawnRateOverTheWave:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 0
-          m_PostInfinity: 0
-          m_RotationOrder: 0
       - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
         MinNumberPerFrame: 1
         MaxCountPerFrame: 3
-        SpawnRateOverTheWave:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 0
-          m_PostInfinity: 0
-          m_RotationOrder: 0
   m_bonusRollWavesInfo: []

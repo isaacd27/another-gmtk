@@ -10,6 +10,7 @@ public class BattleWaveManager : SingletonManager<BattleWaveManager>
     private EnemyWavesData m_data;
     
     private EnemyPoolManager m_pool;
+    public int CurrentWaveIndex => m_currentWaveIndex;
     private int m_currentWaveIndex = 0;
 
     public override void ManagerCreation()
@@ -46,6 +47,6 @@ public class BattleWaveManager : SingletonManager<BattleWaveManager>
 
         WaveInfo cwave = m_data.WavesInfos[m_currentWaveIndex - 1];
 
-        EnemyPoolManager.Instance.StartWave(cwave.Enemies);
+        EnemyPoolManager.Instance.StartWave(cwave.SpawnerDefinitions);
     }
 }
