@@ -52,10 +52,10 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public void setDirection(Vector2 dir)
+    public void setDirection(Vector2 dir, float speedMultiplier = 1)
     {
-        transform.up = dir;
-       r.velocity = new Vector2(dir.x * speed, dir.y * speed);
+       transform.up = dir;
+       r.velocity = dir * speed * speedMultiplier;
         // speed = speed * dir;
     }
 
