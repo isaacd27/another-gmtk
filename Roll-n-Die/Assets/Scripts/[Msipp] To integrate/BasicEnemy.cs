@@ -64,7 +64,9 @@ public class BasicEnemy : MonoBehaviour
     }
     protected void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Projectile"))
+
+        Projectile temp = collision.gameObject.GetComponent<Projectile>();
+        if (temp != null)
         {
             hp -= 1;
             
