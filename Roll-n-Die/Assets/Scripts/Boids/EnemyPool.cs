@@ -1,36 +1,100 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
-public class EnemyPool : Pool
+public class EnemyPool : PoolManager
 {
 	[SerializeField] private int initialCount = 0;
+	// parent of PoolSpawnRadius
 	[SerializeField] private Transform spawnPointsFolder = null;
 
 	private int enemyCount = 0;
+	// Callback once all enemy of the spawner have been killed.
 	public UnityEvent OnAllEnemyDisabled = new UnityEvent();
+	
+	[SerializeField]
+	private Dictionary<MapMarkers, PoolSpawnRadius> m_spawnPointPerMarker;
 
-	private void Awake()
-	{
-		onObjectCreation += OnEnemyCreated;
+#if UNITY_EDITOR
+	[Header("**DEBUG**")]
+	[TextArea]
+	private string m_debugString;
+#endif
+
+	protected override void OnPoolManagerReset()
+    {
+#if UNITY_EDITOR
+		m_debugString = "";
+#endif
 		PoolSpawnRadius[] spawnPoints = spawnPointsFolder.GetComponentsInChildren<PoolSpawnRadius>();
 
-		for (int i = 0; i < initialCount; ++i)
-		{
-			PoolSpawnRadius spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-			Vector2 circlePos = Random.insideUnitCircle * spawnPoint.Radius;
-			Vector3 spawnPos = new Vector3(circlePos.x, circlePos.y, 0.0f) + spawnPoint.transform.position;
-			SpawnObject(Random.Range(0, m_prefabs.Length), spawnPos);
+		m_spawnPointPerMarker = new Dictionary<MapMarkers, PoolSpawnRadius>(spawnPoints.Length);
+		foreach (var sp in spawnPoints)
+        {
+			m_spawnPointPerMarker.Add(sp.Marker, sp);
+#if UNITY_EDITOR
+			m_debugString += $"- {sp.Marker} marked\n";
+#endif
 		}
 	}
 
-	private void OnEnemyCreated(PoolObject poolObj)
-	{
-		++enemyCount;
-		poolObj.onDisable += () =>
-		{
-			--enemyCount;
-			if (enemyCount == 0)
-				OnAllEnemyDisabled.Invoke();
-		};
-	}
+	//public void StartWave(EnemyDataPerMarker[] data)
+	//{
+	//	onObjectCreation += OnEnemyCreated;
+	//	PoolSpawnRadius[] spawnPoints = spawnPointsFolder.GetComponentsInChildren<PoolSpawnRadius>();
+
+	//	for (int i = 0; i < initialCount; ++i)	
+	//	{
+	//		PoolSpawnRadius spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+	//		Vector2 circlePos = Random.insideUnitCircle * spawnPoint.Radius;
+	//		Vector3 spawnPos = new Vector3(circlePos.x, circlePos.y, 0.0f) + spawnPoint.transform.position;
+	//		SpawnObject(Random.Range(0, m_prefabs.Length), spawnPos);
+	//	}
+	//}
+
+	//private void OnEnemyCreated(IPoolableObject poolObj)
+	//{
+	//	++enemyCount;
+	//	poolObj.onDisable += () =>
+	//	{
+	//		--enemyCount;
+	//		if (enemyCount == 0)
+	//			OnAllEnemyDisabled.Invoke();
+	//	};
+	//}
 }
+
+//public class EnemyPool : Pool
+//{
+//	[SerializeField] private int initialCount = 0;
+//	[SerializeField] private Transform spawnPointsFolder = null;
+
+//	private int enemyCount = 0;
+//	// Callback once all enemy of the spawner have been killed.
+//	public UnityEvent OnAllEnemyDisabled = new UnityEvent();
+
+//	private void Awake()
+//	{
+//		onObjectCreation += OnEnemyCreated;
+//		PoolSpawnRadius[] spawnPoints = spawnPointsFolder.GetComponentsInChildren<PoolSpawnRadius>();
+
+//		for (int i = 0; i < initialCount; ++i)
+//		{
+//			PoolSpawnRadius spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+//			Vector2 circlePos = Random.insideUnitCircle * spawnPoint.Radius;
+//			Vector3 spawnPos = new Vector3(circlePos.x, circlePos.y, 0.0f) + spawnPoint.transform.position;
+//			SpawnObject(Random.Range(0, m_prefabs.Length), spawnPos);
+//		}
+//	}
+
+//	private void OnEnemyCreated(PoolObject poolObj)
+//	{
+//		++enemyCount;
+//		poolObj.onDisable += () =>
+//		{
+//			--enemyCount;
+//			if (enemyCount == 0)
+//				OnAllEnemyDisabled.Invoke();
+//		};
+//	}
+//}

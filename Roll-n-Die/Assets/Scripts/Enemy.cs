@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-public class Enemy : PoolObject
+public class Enemy : IPoolableObject
 {
     public UnityEvent OnDeath;
 

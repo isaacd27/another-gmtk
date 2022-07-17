@@ -50,6 +50,6 @@ public class FiringWeapon : Weapon
         IsoController.SwitchWeapon(0);
         OnFiringStart?.Invoke();
 
-		BulletPool.Instance.Instantiate(AmmoType, IsoController.transform.position + SpawnBulletOffset, PlayerMovementController2D.lastWantedDirection.normalized);
+		// BulletPool.Instance.Instantiate(AmmoType, IsoController.transform.position + SpawnBulletOffset, PlayerMovementController2D.lastWantedDirection.normalized);
     }
 }

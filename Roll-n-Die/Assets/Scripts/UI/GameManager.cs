@@ -92,7 +92,6 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Init:
                 SetGameState(GameState.SplashScreen);
-                
                 break;
             
             // The splash screen manager will change the game state when done
@@ -169,6 +168,8 @@ public class GameManager : MonoBehaviour
     {
         m_fadingScreenManager.OnMidLoading -= MidLoadingToInGame;
         PlayerControllerManager.Instance.ResetPlayer();
+
+        PoolManager.Instance.ResetManager();
     }
 
     private void LoadingToInGame()

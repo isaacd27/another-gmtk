@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Bullet : PoolObject
+public class Bullet : IPoolableObject
 {
     public UnityEvent OnHit;
     public UnityEvent OnKill;
@@ -30,14 +30,15 @@ public class Bullet : PoolObject
         }
     }
 
-    private void Awake()
+    protected override void OnReset()
     {
         Life = script.Life;
         originScale = transform.localScale;
     }
-    protected override void OnEnable()
+
+    protected override void OnActivation()
     {
-        base.OnEnable();
+        base.OnActivation();
         Life = script.Life;
         GetComponent<Renderer>().enabled = true;
         GetComponent<Rigidbody2D>().simulated = true;
