@@ -30,4 +30,137 @@ MonoBehaviour:
       - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
         MinNumberPerFrame: 1
         MaxCountPerFrame: 3
+  - SpawnerDefinitions:
+    - SpawnPointMarker: 0
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 3
+        MaxCountPerFrame: 6
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 1
+        MaxCountPerFrame: 4
+    - SpawnPointMarker: 4
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 3
+        MaxCountPerFrame: 6
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 1
+        MaxCountPerFrame: 4
+  - SpawnerDefinitions:
+    - SpawnPointMarker: 4
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 4
+        MaxCountPerFrame: 7
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 2
+        MaxCountPerFrame: 5
+    - SpawnPointMarker: 2
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 4
+        MaxCountPerFrame: 7
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 2
+        MaxCountPerFrame: 5
+    - SpawnPointMarker: 6
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 4
+        MaxCountPerFrame: 7
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 2
+        MaxCountPerFrame: 5
+  - SpawnerDefinitions:
+    - SpawnPointMarker: 0
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 5
+        MaxCountPerFrame: 8
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 3
+        MaxCountPerFrame: 6
+    - SpawnPointMarker: 4
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 5
+        MaxCountPerFrame: 8
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 3
+        MaxCountPerFrame: 6
+    - SpawnPointMarker: 6
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 5
+        MaxCountPerFrame: 8
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 3
+        MaxCountPerFrame: 6
+  - SpawnerDefinitions:
+    - SpawnPointMarker: 0
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 6
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 4
+        MaxCountPerFrame: 8
+    - SpawnPointMarker: 4
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 6
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 4
+        MaxCountPerFrame: 8
+    - SpawnPointMarker: 2
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 6
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 4
+        MaxCountPerFrame: 8
+    - SpawnPointMarker: 6
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 6
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 4
+        MaxCountPerFrame: 8
+  - SpawnerDefinitions:
+    - SpawnPointMarker: 0
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 8
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 7
+        MaxCountPerFrame: 10
+    - SpawnPointMarker: 4
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 8
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 7
+        MaxCountPerFrame: 10
+    - SpawnPointMarker: 2
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 8
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 7
+        MaxCountPerFrame: 10
+    - SpawnPointMarker: 6
+      EnemySpawnDefinitions:
+      - objectsID: {fileID: 11400000, guid: f1434b50260963541a5616216e6253d8, type: 2}
+        MinNumberPerFrame: 8
+        MaxCountPerFrame: 10
+      - objectsID: {fileID: 11400000, guid: bdb6709b0af988046a8795f753a2aef0, type: 2}
+        MinNumberPerFrame: 7
+        MaxCountPerFrame: 10
   m_bonusRollWavesInfo: []
