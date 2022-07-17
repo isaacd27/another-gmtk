@@ -47,7 +47,8 @@ public class Chaser : BasicEnemy
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Projectile temp = collision.gameObject.GetComponent<Projectile>();
-        if (temp != null)
+        Stake temp2 = collision.gameObject.GetComponent<Stake>();
+        if (temp != null || temp2 != null)
         {
             hp -= 1;
             //enemyhitreduction goes here
