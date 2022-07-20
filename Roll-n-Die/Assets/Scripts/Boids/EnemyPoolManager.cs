@@ -21,13 +21,17 @@ public class EnemyPoolManager : PoolManager<EnemyPoolManager>
 	[TextArea]
 	private string m_debugString;
 #endif
-
-    public override void ManagerCreation() 
+    protected override EnemyPoolManager GetInstance()
     {
-        m_instance = this;
+        return this;
     }
 
-public void StartWave(EnemyDataPerMarker[] data)
+    public override void OnGameStateChange(GameState newState)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void StartWave(EnemyDataPerMarker[] data)
     {
         foreach (var d in data)
         {

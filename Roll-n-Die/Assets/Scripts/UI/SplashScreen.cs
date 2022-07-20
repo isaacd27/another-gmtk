@@ -1,20 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class SplashScreen : MonoBehaviour
 {
     [SerializeField]
     private SplashScreen m_nextSplashScreen;
+    [SerializeField]
+    public UnityEvent OnSplashScreenSequenceCompletion;
 
-    public void OnGameStateChanged(GameState newState)
-    {
-        if (newState == GameState.SplashScreen)
-        {
-            this.Present();
-        }
-    }
 
     public void Present()
     {
@@ -41,7 +37,8 @@ public class SplashScreen : MonoBehaviour
         }
         else
         {
-            FindObjectOfType<GameManager>().SetGameState(GameState.FrontEnd);
+            OnSplashScreenSequenceCompletion?.Invoke();
+            // FindObjectOfType<GameManager>().SetGameState(GameState.FrontEnd);
         }
     }
 }

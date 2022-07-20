@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-public class BattleWaveManager : SingletonManager<BattleWaveManager>
+// Need to add a way to pause wave?
+public class BattleWaveManager : GameSingletonManager<BattleWaveManager>
 {
     [SerializeField]
     private EnemyWavesData m_data;
@@ -13,10 +13,14 @@ public class BattleWaveManager : SingletonManager<BattleWaveManager>
     public int CurrentWaveIndex => m_currentWaveIndex;
     private int m_currentWaveIndex = 0;
 
-    public override void ManagerCreation()
+    protected override BattleWaveManager GetInstance()
     {
-        m_currentWaveIndex = 0;
-        m_instance = this;
+        return this;
+    }
+
+    public override void OnGameStateChange(GameState newState)
+    {
+        // throw new System.NotImplementedException();
     }
 
     public override void StartManager()

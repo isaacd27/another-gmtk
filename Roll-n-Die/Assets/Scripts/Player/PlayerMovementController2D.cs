@@ -102,22 +102,22 @@ public class PlayerMovementController2D : BasePlayerController2D
         movementSpeed = value ? vacuumMovementSpeed : normalMovementSpeed;
     }
 
-    private void OnGUI()
-    {
-        GUILayout.BeginVertical(GUI.skin.box);
-        UIDebugDrawLabelValue("Current Vel", currentVel.ToString());
-        UIDebugDrawLabelValue("Mov Speed", movementSpeed.ToString());
-        UIDebugDrawLabelValue("Max Delta Vel", (movementSpeed * Time.fixedDeltaTime).ToString());
-        GUILayout.EndVertical();
-    }
+    //private void OnGUI()
+    //{
+    //    GUILayout.BeginVertical(GUI.skin.box);
+    //    UIDebugDrawLabelValue("Current Vel", currentVel.ToString());
+    //    UIDebugDrawLabelValue("Mov Speed", movementSpeed.ToString());
+    //    UIDebugDrawLabelValue("Max Delta Vel", (movementSpeed * Time.fixedDeltaTime).ToString());
+    //    GUILayout.EndVertical();
+    //}
 
-    private void UIDebugDrawLabelValue(string label, string value)
-    {
-        GUILayout.BeginHorizontal();
-        {
-            GUILayout.Label(label + ":");
-            GUILayout.Label(value);
-        }
-        GUILayout.EndHorizontal();
-    }
+    //private void UIDebugDrawLabelValue(string label, string value)
+    //{
+    //    GUILayout.BeginHorizontal();
+    //    {
+    //        GUILayout.Label(label + ":");
+    //        GUILayout.Label(value);
+    //    }
+    //    GUILayout.EndHorizontal();
+    //}
 }

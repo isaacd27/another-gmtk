@@ -3,9 +3,14 @@ using UnityEngine;
 
 public class BulletPool : PoolManager<BulletPool>
 {
-	public override void ManagerCreation()
+	protected override BulletPool GetInstance()
 	{
-		m_instance = this;
+		return this;
+	}
+
+	public override void OnGameStateChange(GameState newState)
+	{
+		throw new System.NotImplementedException();
 	}
 
 	//public static BulletPool Instance { get; private set; } = null;

@@ -13,7 +13,12 @@ public class PlayerControllerManager : SingletonManager<PlayerControllerManager>
     [SerializeField]
     private Transform[] m_playerSpawnPoints;
 
-    public override void ManagerCreation()
+    protected override PlayerControllerManager GetInstance()
+    {
+        return this;
+    }
+
+    private void Start()
     {
         m_instance = this;
         playerControllers = FindObjectsOfType<BasePlayerController2D>();
