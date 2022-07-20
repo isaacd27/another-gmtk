@@ -9,7 +9,7 @@ public class PlayerControllerManager : SingletonManager<PlayerControllerManager>
     public bool IsInputLock { private set; get; } = true;
 
     [SerializeField]
-    private BasePlayerController2D[] playerControllers;
+    private TopDownBasePlayerController[] playerControllers;
     [SerializeField]
     private Transform[] m_playerSpawnPoints;
 
@@ -21,7 +21,7 @@ public class PlayerControllerManager : SingletonManager<PlayerControllerManager>
     private void Start()
     {
         m_instance = this;
-        playerControllers = FindObjectsOfType<BasePlayerController2D>();
+        playerControllers = FindObjectsOfType<TopDownBasePlayerController>();
 
         Debug.Assert(m_playerSpawnPoints != null);
         Debug.Assert(m_playerSpawnPoints.Length >= playerControllers.Length);
@@ -38,7 +38,5 @@ public class PlayerControllerManager : SingletonManager<PlayerControllerManager>
         {
             playerControllers[i].ResetEntity(m_playerSpawnPoints[i].position);
         }
-        
-        IsInputLock = false;
     }
 }

@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
-public class ALoadingScreenManager : SingletonManager<ALoadingScreenManager>
+public class LoadingScreenManager : SingletonManager<LoadingScreenManager>
 {
     public event UnityAction OnLoadingCompleted;
     private event UnityAction OnReadyToLoad;
     private Animator m_transition;
 
-    protected override ALoadingScreenManager GetInstance()
+    protected override LoadingScreenManager GetInstance()
     {
         return this;
     }
@@ -43,6 +43,7 @@ public class ALoadingScreenManager : SingletonManager<ALoadingScreenManager>
     private void LoadCompleted()
     {
         OnLoadingCompleted?.Invoke();
+        OnLoadingCompleted = null;
     }
 
     public void AddLoaderToExecute(UnityAction action)

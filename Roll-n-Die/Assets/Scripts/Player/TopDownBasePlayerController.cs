@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class BasePlayerController2D : MonoBehaviour
+public abstract class TopDownBasePlayerController : MonoBehaviour
 {
     protected Rigidbody2D m_rbody = null;
 

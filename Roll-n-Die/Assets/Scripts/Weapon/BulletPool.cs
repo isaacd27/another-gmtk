@@ -8,10 +8,6 @@ public class BulletPool : PoolManager<BulletPool>
 		return this;
 	}
 
-	public override void OnGameStateChange(GameState newState)
-	{
-		throw new System.NotImplementedException();
-	}
 
 	//public static BulletPool Instance { get; private set; } = null;
 

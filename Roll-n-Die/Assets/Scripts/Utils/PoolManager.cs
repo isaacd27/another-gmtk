@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public abstract class PoolManager<T> : GameSingletonManager<T>
+public abstract class PoolManager<T> : SingletonManager<T>
 	where T: class
 {
 	[System.Serializable]

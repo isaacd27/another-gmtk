@@ -8,15 +8,15 @@ public abstract class GameStateLoadingBaseState : NobunAtelier.StateComponent<Ga
 
     public override void Enter()
     {
-        ALoadingScreenManager.Instance.AddLoaderToExecute(OnLoadReady);
-        ALoadingScreenManager.Instance.OnLoadingCompleted += OnLoadingCompleted;
-        ALoadingScreenManager.Instance.StartFadeIn();
+        LoadingScreenManager.Instance.AddLoaderToExecute(OnLoadReady);
+        LoadingScreenManager.Instance.OnLoadingCompleted += OnLoadingCompleted;
+        LoadingScreenManager.Instance.StartFadeIn();
     }
 
     private void OnLoadReady()
     {
         Load();
-        ALoadingScreenManager.Instance.StartFadeOut();
+        LoadingScreenManager.Instance.StartFadeOut();
     }
 
     // Load next state.

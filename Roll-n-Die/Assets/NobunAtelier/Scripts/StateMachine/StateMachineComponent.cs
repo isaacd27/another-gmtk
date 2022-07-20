@@ -15,7 +15,7 @@ namespace NobunAtelier
 
         [Header("--- State Machine Debug ---")]
         [SerializeField]
-        private bool m_displayDebug = false;
+        protected bool m_displayDebug = false;
         
         protected override void Start()
         {
@@ -29,7 +29,12 @@ namespace NobunAtelier
 
         public override void SetState(T newState)
         {
-            if (!m_statesMap.ContainsKey(newState) || newState == m_activeStateDefinition)
+            if(newState == m_activeStateDefinition)
+            {
+                return;
+            }
+
+            if (!m_statesMap.ContainsKey(newState))
             {
                 base.SetState(newState);
                 return;
@@ -78,21 +83,21 @@ namespace NobunAtelier
             m_statesMap[m_activeStateDefinition].Tick(deltaTime);
         }
 
-        private void OnGUI()
+        protected virtual void OnGUI()
         {
             if (!Application.isPlaying || !m_displayDebug)
             {
                 return;
             }
 
-            GUILayout.BeginVertical(GUI.skin.box, GUILayout.Width(Screen.safeArea.width));
+            GUILayout.BeginVertical(GUI.skin.box);
             GUILayout.Label("<b>------------</b>");
             GUILayout.Label("<b>State Machine Behaviour</b>");
-            GUILayout.Label($"<b>Current state: {m_activeStateDefinition}</b>");
+            GUILayout.Label($"<b>Current state: {m_activeStateDefinition.name}</b>");
 
             foreach(var a in m_statesMap)
             {
-                UIDebugDrawLabelValue(a.Key.ToString(), a.Value.ToString());                
+                UIDebugDrawLabelValue(a.Key.name, a.Value.name);                
             }
 
             GUILayout.EndVertical();

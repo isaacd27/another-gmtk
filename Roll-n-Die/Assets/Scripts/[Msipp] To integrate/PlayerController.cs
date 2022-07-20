@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController :BasePlayerController2D
+public class PlayerController :TopDownBasePlayerController
 {
     [SerializeField]
     private float moveSpeed = 5f;
@@ -13,12 +13,9 @@ public class PlayerController :BasePlayerController2D
     }
     // Update is called once per frame
   
-    
-
    public void death()
-    {
-        GameManager.Instance.GameOver();
-    }
+   {
+   }
 
     protected override void ControllerUpdate()
     {

@@ -185,7 +185,7 @@ public class GunFace : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Danger"))
         {
-            GameManager.Instance.GameOver();
+            Debug.Log("Hit danger, should be dead");
         }
     }
 

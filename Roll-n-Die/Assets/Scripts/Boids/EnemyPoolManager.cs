@@ -26,11 +26,6 @@ public class EnemyPoolManager : PoolManager<EnemyPoolManager>
         return this;
     }
 
-    public override void OnGameStateChange(GameState newState)
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void StartWave(EnemyDataPerMarker[] data)
     {
         foreach (var d in data)

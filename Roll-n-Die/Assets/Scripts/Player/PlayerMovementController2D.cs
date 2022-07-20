@@ -7,7 +7,7 @@ public class MyIntEvent : UnityEvent<int>
 {
 }
 
-public class PlayerMovementController2D : BasePlayerController2D
+public class PlayerMovementController2D : TopDownBasePlayerController
 {
     [SerializeField]
     SpriteRenderer FireWeapon;

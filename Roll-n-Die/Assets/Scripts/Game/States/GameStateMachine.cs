@@ -10,6 +10,10 @@ public class GameStateMachine : NobunAtelier.StateMachineComponent<GameStateDefi
     [SerializeField]
     private GameStateDefinition m_loadingMenuState;
 
+    [SerializeField]
+    private bool m_displayStatesDebug = false;
+    private Vector2 scrollPos;
+
     protected override void Start()
     {
         Application.targetFrameRate = 60;
@@ -20,11 +24,6 @@ public class GameStateMachine : NobunAtelier.StateMachineComponent<GameStateDefi
     private void Update()
     {
         Tick(Time.deltaTime);
-
-        if(Input.GetButtonDown("Cancel"))
-        {
-            Debug.Log($"{Time.frameCount} - Button cancel is down!");
-        }
     }
 
     public void RestartGame()
@@ -45,4 +44,62 @@ public class GameStateMachine : NobunAtelier.StateMachineComponent<GameStateDefi
         yield return new WaitForSeconds(1f);
         Enter();
     }
+
+#if UNITY_EDITOR
+    protected override void OnGUI()
+    {
+        if(!m_displayDebug)
+        {
+            return;
+        }
+        
+        GUILayout.BeginVertical(GUI.skin.box);
+        GUILayout.Label("<b>------------</b>");
+        GUILayout.Label("<b>Game Manager</b>");
+        UIDebugDrawLabelValue("Game State", CurrentStateDefinition.name);
+
+        GUILayout.Label("<b>------------</b>");
+        GUILayout.Label("<b>Player Manager</b>");
+        UIDebugDrawLabelValue("Input Lock", PlayerControllerManager.Instance.IsInputLock.ToString());
+
+        if (BattleWaveManager.Instance)
+        {
+            GUILayout.Label("<b>------------</b>");
+            GUILayout.Label("<b>Wave Manager</b>");
+            UIDebugDrawLabelValue("Current Wave", BattleWaveManager.Instance.CurrentWaveIndex.ToString());
+
+            if (EnemyPoolManager.Instance)
+            {
+                UIDebugDrawLabelValue("Remaining Enemies", EnemyPoolManager.Instance.RemainingEnemies.ToString());
+            }
+        }
+
+
+        GUILayout.Label("<b>------------</b>");
+        GUILayout.Label("<b>DEBUG KEYS</b>");
+        GUILayout.Label("<b>P</b>: Start next wave");
+        GUILayout.Label("<b>L</b>: Force GameOver");
+        GUILayout.Label("<b>K</b>: Randomize Weapons");
+
+        GUILayout.Label("<b>------------</b>");
+        m_displayStatesDebug = GUILayout.Toggle(m_displayStatesDebug, "<b>State Machine</b>", GUI.skin.button);
+        if (m_displayStatesDebug)
+        {
+            scrollPos = GUILayout.BeginScrollView(scrollPos, GUI.skin.box);
+            base.OnGUI();
+            GUILayout.EndScrollView();
+        }
+        GUILayout.EndVertical();
+    }
+
+    private void UIDebugDrawLabelValue(string label, string value)
+    {
+        GUILayout.BeginHorizontal();
+        {
+            GUILayout.Label(label + ":");
+            GUILayout.Label(value);
+        }
+        GUILayout.EndHorizontal();
+    }
+#endif
 }
